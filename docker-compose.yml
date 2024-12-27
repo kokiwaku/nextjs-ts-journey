@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  front:
+    container_name: front
+    build: ./front
+    ports:
+      - 80:3000
+      - 9229:9229
+      - 9230:9230
+    volumes:
+      - ./front:/workspace
+    # debug modeで起動
+    command: sh -c "npm run debug"
+
+  back:
+    container_name: back
+    build: ./back
+    ports:
+      - 8080:80
+    volumes:
+      - ./back/src:/workspace
+    command: sh -c "apache2-foreground"
+
+  db:
+    container_name: db
+    build: ./db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: react-journey
+      MYSQL_USER: general
+      MYSQL_PASSWORD: general
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
