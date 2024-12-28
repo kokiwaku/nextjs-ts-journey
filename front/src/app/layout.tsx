@@ -16,7 +16,6 @@ export default async function RootLayout({
   const headersList = await headers();
   const currentPath = headersList.get('x-pathname') ?? '';
 
-  debugger;
   // 認証不要のパス
   const unauthorozeAllowPath = [
     '/auth/login',

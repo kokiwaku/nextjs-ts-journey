@@ -1,10 +1,6 @@
-import ClientComponent from "@/components/auth/login/client-component";
+import type { NextPage } from "next";
+import LoginTemplate from "@/components/templates/LoginTemplate";
 
-export default function login() {
-  return (
-    <>
-      <h1>Login</h1>
-      <ClientComponent />
-    </>
-  );
-}
+const LoginPage: NextPage = () => <LoginTemplate />;
+
+export default LoginPage;

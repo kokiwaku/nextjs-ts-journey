@@ -21,6 +21,9 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
   const responseJson = await response.json();
   const todo = responseJson.todo;
+  if (todo === undefined) {
+    return NextResponse.json([])
+  }
 
   const result: Todo = {
     id: todo.id,

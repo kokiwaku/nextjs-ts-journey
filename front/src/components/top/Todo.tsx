@@ -11,7 +11,6 @@ const Todo: React.FC<{ todo: TodoType, fetchTodoList: Function }> = ({ todo, fet
   const router = useRouter();
   const handleDetail = (todoId: TodoId): void => {
     // redirect to DetailTodo
-    debugger;
     router.push(`/todo/${todoId}`);
   };
 

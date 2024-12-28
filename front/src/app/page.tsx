@@ -1,13 +1,6 @@
-import TodoList from "@/components/top/Todolist";
-import SearchTodo from "@/components/top/SearchTodo";
-import Header from "@/components/common/Header";
+import { NextPage } from "next";
+import TopTemplate from "@/components/templates/TopTemplate";
 
-export default function home() {
-  return (
-    <>
-      <Header title="Top"/>
-      <SearchTodo />
-      <TodoList />
-    </>
-  );
-}
+const TopPage: NextPage = () => <TopTemplate />
+
+export default TopPage;

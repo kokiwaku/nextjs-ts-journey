@@ -1,48 +1,40 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { redirect } from "next/navigation";
-import { AuthUser } from "@/types/auth";
+import { FormEvent, useState, FC } from "react";
+import { useRouter, redirect } from "next/navigation";
 import { FRONT_API_ENDPOINT } from "@/constants/server";
 
-type RootLayoutProps = {
-  user: AuthUser;
-  children: React.ReactNode;
-};
-export default function ClientComponent() {
-  const dispatch = useDispatch();
+const SignupTemplate: FC = () => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
+
   const isAbleToSubmit = email.trim() !== "" && password.trim() !== "";
 
+  const router = useRouter();
+
   const handleSubmit = async (e: FormEvent) => {
+
     e.preventDefault();
 
     const payload = {
       email,
+      name: email,
       password,
     };
+
     try {
-      const response = await fetch(`${FRONT_API_ENDPOINT}/auth/login`, {
+      const response = await fetch(`${FRONT_API_ENDPOINT}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(payload)
       });
-
-      // response check
       if (!response.ok) {
-        throw new Error('Fail to login..');
+        throw new Error('Singup Fail!!');
       }
-      const responseJson = await response.json();
-      if (responseJson === null) {
-        throw new Error('Fail to login..');
-      }
-
     } catch (error) {
-      console.error("error:", error);
+      console.error("Error during signup:", error);
     }
 
     // 認証OK
@@ -51,20 +43,24 @@ export default function ClientComponent() {
 
   return (
     <>
+      <h1>Sign up</h1>
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="form-el">
-          <label htmlFor="username">email</label>
-          <input type="text" id="username" value={ email } onChange={ (e) => setemail(e.target.value)}/>
+          <label htmlFor="email">email</label>
+          <input type="text" id="email" value={ email } onChange={ (e) => setemail(e.target.value)}/>
         </div>
         <div className="form-el">
           <label htmlFor="password">password</label>
           <input type="password" id="password" value={password} onChange={(e) => setpassword(e.target.value)} />
         </div>
         <div className="button-el">
-          <button type="submit" className="loginBtn" disabled={!isAbleToSubmit}>Login</button>
+          <button type="submit" className="signupBtn" disabled={!isAbleToSubmit}>Sign up</button>
         </div>
       </form>
-      <p className="auth-redirect-btn" onClick={() => redirect('/auth/signup')}>or, signup</p>
+
+      <p className="auth-redirect-btn" onClick={() => router.push('/auth/login')}>or, login</p>
     </>
   );
 }
+
+export default SignupTemplate;
