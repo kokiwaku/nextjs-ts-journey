@@ -1,10 +1,10 @@
-import ClientComponent from '@/components/auth/login/client-component';
+import LoginForm from '@/components/oraganisms/LoginForm';
 
 const LoginTemplate: React.FC = () => {
   return (
     <>
       <h1>Login</h1>
-      <ClientComponent />
+      <LoginForm />
     </>
   );
 };
