@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import BaseLayout from '@/components/oraganisms/BaseLayout';
+import CommonButton from '@/components/atoms/CommonButton';
 
 const TodoNewTemplage: NextPage = () => {
   const [todoContent, setTodoContent] = useState('');
@@ -35,9 +36,7 @@ const TodoNewTemplage: NextPage = () => {
           />
         </div>
         <div className="m-1">
-          <button className="addTodoBtn" onClick={handleAddTodo}>
-            Submit
-          </button>
+          <CommonButton title="Submit" onClick={handleAddTodo} />
         </div>
       </BaseLayout>
     </>

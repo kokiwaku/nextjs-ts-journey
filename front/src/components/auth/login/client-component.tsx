@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { redirect } from "next/navigation";
-import { AuthUser } from "@/types/auth";
-import { FRONT_API_ENDPOINT } from "@/constants/server";
+import { FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { redirect } from 'next/navigation';
+import { AuthUser } from '@/types/auth';
+import { FRONT_API_ENDPOINT } from '@/constants/server';
+import CommonButton from '@/components/atoms/CommonButton';
 
 type RootLayoutProps = {
   user: AuthUser;
@@ -14,7 +15,7 @@ export default function ClientComponent() {
   const dispatch = useDispatch();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const isAbleToSubmit = email.trim() !== "" && password.trim() !== "";
+  const isAbleToSubmit = email.trim() !== '' && password.trim() !== '';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -25,11 +26,11 @@ export default function ClientComponent() {
     };
     try {
       const response = await fetch(`${FRONT_API_ENDPOINT}/auth/login`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       // response check
@@ -40,31 +41,46 @@ export default function ClientComponent() {
       if (responseJson === null) {
         throw new Error('Fail to login..');
       }
-
     } catch (error) {
-      console.error("error:", error);
+      console.error('error:', error);
     }
 
     // 認証OK
     redirect('/');
-  }
+  };
 
   return (
     <>
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="form-el">
           <label htmlFor="username">email</label>
-          <input type="text" id="username" value={ email } onChange={ (e) => setemail(e.target.value)}/>
+          <input
+            type="text"
+            id="username"
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+          />
         </div>
         <div className="form-el">
           <label htmlFor="password">password</label>
-          <input type="password" id="password" value={password} onChange={(e) => setpassword(e.target.value)} />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+          />
         </div>
         <div className="button-el">
-          <button type="submit" className="loginBtn" disabled={!isAbleToSubmit}>Login</button>
+          <CommonButton
+            title="Login"
+            type="submit"
+            disabled={!isAbleToSubmit}
+          />
         </div>
       </form>
-      <p className="auth-redirect-btn" onClick={() => redirect('/auth/signup')}>or, signup</p>
+      <p className="auth-redirect-btn" onClick={() => redirect('/auth/signup')}>
+        or, signup
+      </p>
     </>
   );
 }

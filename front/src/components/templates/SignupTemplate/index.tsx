@@ -3,6 +3,7 @@
 import { FormEvent, useState } from 'react';
 import { useRouter, redirect } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
+import CommonButton from '@/components/atoms/CommonButton';
 
 const SignupTemplate: React.FC = () => {
   const [email, setemail] = useState('');
@@ -63,13 +64,11 @@ const SignupTemplate: React.FC = () => {
           />
         </div>
         <div className="button-el">
-          <button
+          <CommonButton
+            title="Sign up"
             type="submit"
-            className="signupBtn"
             disabled={!isAbleToSubmit}
-          >
-            Sign up
-          </button>
+          />
         </div>
       </form>
 

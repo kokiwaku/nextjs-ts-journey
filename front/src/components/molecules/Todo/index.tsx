@@ -2,10 +2,21 @@
 
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { Todo as TodoType, TodoId } from '@/types';
+import { Todo as TodoType, TodoId } from '@/types/todo';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
+import CommonButton from '@/components/atoms/CommonButton';
+import styled from 'styled-components';
 
-// TODO Delete時にTodoListを再fetchするために親からfetchTodoListを渡している構成をやめたい
+const StyledTodoItem = styled.li`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+const StyledButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;
 const Todo: React.FC<{ todo: TodoType; fetchTodoList: Function }> = ({
   todo,
   fetchTodoList,
@@ -26,21 +37,17 @@ const Todo: React.FC<{ todo: TodoType; fetchTodoList: Function }> = ({
   };
   return (
     <>
-      <li>
+      <StyledTodoItem>
         {todo.content}
-        <button
-          className="detailTodoBtn m-1"
-          onClick={() => handleDetail(todo.id)}
-        >
-          detail
-        </button>
-        <button
-          className="deleteTodoBtn m-1"
-          onClick={() => handleDelete(todo.id)}
-        >
-          delete
-        </button>
-      </li>
+        <StyledButtonGroup>
+          <CommonButton title="detail" onClick={() => handleDetail(todo.id)} />
+          <CommonButton
+            title="delete"
+            onClick={() => handleDelete(todo.id)}
+            buttonStyle="delete"
+          />
+        </StyledButtonGroup>
+      </StyledTodoItem>
     </>
   );
 };
