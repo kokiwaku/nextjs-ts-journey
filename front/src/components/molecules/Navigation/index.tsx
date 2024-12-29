@@ -1,13 +1,18 @@
 import NavigationLink from '@/components/atoms/NavigationLink';
-import { FC } from 'react';
+import styled from 'styled-components';
 
-const Navigation: FC = () => {
+const StyledNavigation = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;
+const Navigation: React.FC = () => {
   return (
     <>
-      <div className="button-container">
+      <StyledNavigation>
         <NavigationLink linkPath="/" title="Home" />
         <NavigationLink linkPath="/todo/new" title="Add Todo" />
-      </div>
+      </StyledNavigation>
     </>
   );
 };

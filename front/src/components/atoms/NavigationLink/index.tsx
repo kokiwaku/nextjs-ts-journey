@@ -1,17 +1,21 @@
-import { FC } from "react";
-import Link from "next/link";
+import Link from 'next/link';
+import styled from 'styled-components';
 
+const StyledButton = styled.button`
+  background-color: lightskyblue;
+  color: black;
+`;
 type Props = {
-  title: string,
-  linkPath: string,
+  title: string;
+  linkPath: string;
 };
-const NavigationLink:FC<Props> = ({ title, linkPath }) => {
+const NavigationLink: React.FC<Props> = ({ title, linkPath }) => {
   return (
     <>
       <Link href={linkPath}>
-        { title }
+        <StyledButton>{title}</StyledButton>
       </Link>
     </>
   );
-}
+};
 export default NavigationLink;

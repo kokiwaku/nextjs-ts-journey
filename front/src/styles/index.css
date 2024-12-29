@@ -70,14 +70,15 @@ button:focus-visible {
 }
 
 .m-1 {
-  margin: 0.5rem
+  margin: 0.5rem;
 }
 
 button:disabled {
   cursor: not-allowed;
   opacity: 0.3;
 }
-.addTodoBtn, .loginBtn, .signupBtn {
+.loginBtn,
+.signupBtn {
   background-color: lightskyblue;
   color: black;
 }
@@ -91,12 +92,6 @@ button:disabled {
 
 .redirectToPageBth {
   background-color: turquoise;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 90px;
 }
 
 .todo-container {

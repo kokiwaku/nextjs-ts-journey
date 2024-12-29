@@ -1,11 +1,8 @@
-'use client';
-
-import { FC } from 'react';
 import BaseLayout from '@/components/oraganisms/BaseLayout';
-import SearchTodo from '@/components/top/SearchTodo';
-import TodoList from '@/components/top/Todolist';
+import SearchTodo from '@/components/oraganisms/SearchTodo';
+import TodoList from '@/components/oraganisms/TodoList';
 
-const TopTemplate: FC = () => {
+const TopTemplate: React.FC = () => {
   return (
     <>
       <BaseLayout title="Top">

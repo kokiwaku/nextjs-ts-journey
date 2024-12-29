@@ -1,12 +1,12 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import { Todo } from '@/types/todo';
 import BaseLayout from '@/components/oraganisms/BaseLayout';
 
-const TopDetailTemplate: FC = () => {
+const TopDetailTemplate: React.FC = () => {
   const [todo, setTodo] = useState<Todo | null>(null);
   const [loading, setLoading] = useState(true);
 

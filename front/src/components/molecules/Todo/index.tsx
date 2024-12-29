@@ -1,12 +1,15 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { Todo as TodoType, TodoId } from "@/types";
-import { FRONT_API_ENDPOINT } from "@/constants/server";
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { Todo as TodoType, TodoId } from '@/types';
+import { FRONT_API_ENDPOINT } from '@/constants/server';
 
 // TODO Delete時にTodoListを再fetchするために親からfetchTodoListを渡している構成をやめたい
-const Todo: React.FC<{ todo: TodoType, fetchTodoList: Function }> = ({ todo, fetchTodoList }) => {
+const Todo: React.FC<{ todo: TodoType; fetchTodoList: Function }> = ({
+  todo,
+  fetchTodoList,
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleDetail = (todoId: TodoId): void => {
@@ -16,7 +19,7 @@ const Todo: React.FC<{ todo: TodoType, fetchTodoList: Function }> = ({ todo, fet
 
   const handleDelete = async (todoId: TodoId) => {
     await fetch(`${FRONT_API_ENDPOINT}/todo/${todoId}`, {
-        method: 'DELETE'
+      method: 'DELETE',
     });
     await fetchTodoList();
     router.push('/');

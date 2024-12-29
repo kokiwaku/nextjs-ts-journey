@@ -1,14 +1,13 @@
 'use client';
 
-import { FC, ReactNode } from 'react';
 import { useSelector } from '@/store';
 import Navigation from '@/components/molecules/Navigation';
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
   title: string;
 };
-const BaseLayout: FC<Props> = ({ children, title }) => {
+const BaseLayout: React.FC<Props> = ({ children, title }) => {
   const auth = useSelector((state) => state.auth);
   return (
     <>

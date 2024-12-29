@@ -1,17 +1,17 @@
-"use client";
-// TODO サーバーサイドでレンダリングしたい
-import useTodo from "../../hooks/UseTodo";
-import { FRONT_API_ENDPOINT } from "@/constants/server";
-import Todo from "./Todo";
-import { useSelector } from "@/store";
-import { useEffect, useState } from "react";
-import { Todo as TodoType} from "@/types/todo";
+'use client';
+
+import useTodo from '@/hooks/UseTodo';
+import { FRONT_API_ENDPOINT } from '@/constants/server';
+import Todo from '@/components/molecules/Todo';
+import { useSelector } from '@/store';
+import { useEffect, useState } from 'react';
+import { Todo as TodoType } from '@/types/todo';
 
 const TodoList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { filterTodoList } = useTodo();
-  const [ filteredList, setFilteredList ] = useState<TodoType[]>([]);
-  const [ todoList, setTodoList ] = useState<TodoType[]>([]);
+  const [filteredList, setFilteredList] = useState<TodoType[]>([]);
+  const [todoList, setTodoList] = useState<TodoType[]>([]);
   const { searchTodoValue } = useSelector((state) => state.todo);
 
   const fetchTodoList = async () => {
@@ -46,19 +46,17 @@ const TodoList: React.FC = () => {
   return (
     <>
       <h2>Todo List</h2>
-      {
-        filteredList.length === 0 ? (
-          <p>No Content.</p>
-        ) : (
-          <ul>
-              {
-                filteredList.map((todo) => {
-                  return <Todo key={todo.id} todo={todo} fetchTodoList={fetchTodoList} />;
-                })
-              }
-          </ul>
-        )
-      }
+      {filteredList.length === 0 ? (
+        <p>No Content.</p>
+      ) : (
+        <ul>
+          {filteredList.map((todo) => {
+            return (
+              <Todo key={todo.id} todo={todo} fetchTodoList={fetchTodoList} />
+            );
+          })}
+        </ul>
+      )}
     </>
   );
 };
