@@ -1,18 +1,19 @@
-"use client";
+'use client';
 
-import { FC } from "react";
-import Header from "@/components/common/Header";
-import SearchTodo from "@/components/top/SearchTodo";
-import TodoList from "@/components/top/Todolist";
+import { FC } from 'react';
+import BaseLayout from '@/components/oraganisms/BaseLayout';
+import SearchTodo from '@/components/top/SearchTodo';
+import TodoList from '@/components/top/Todolist';
 
 const TopTemplate: FC = () => {
   return (
     <>
-      <Header title="Top"/>
-      <SearchTodo />
-      <TodoList />
+      <BaseLayout title="Top">
+        <SearchTodo />
+        <TodoList />
+      </BaseLayout>
     </>
   );
-}
+};
 
 export default TopTemplate;
