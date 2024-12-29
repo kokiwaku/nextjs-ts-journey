@@ -6,8 +6,24 @@ import { redirect } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
 import HrefText from '@/components/atoms/HrefText';
-import InputForm from '@/components/atoms/InputForm';
+import InputFormWithLabel from '@/components/molecules/InputFormWithLabel';
+import styled from 'styled-components';
 
+const StyledForm = styled.form`
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+
+  div {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    label {
+      width: 5rem;
+    }
+  }
+`;
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const [email, setemail] = useState('');
@@ -48,33 +64,31 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      <form className="form-container" onSubmit={handleSubmit}>
-        <div className="form-el">
-          <label htmlFor="username">email</label>
-          <InputForm
+      <StyledForm onSubmit={handleSubmit}>
+        <div>
+          <InputFormWithLabel
             type="text"
             id="username"
             value={email}
             onChange={(e) => setemail(e.target.value)}
           />
         </div>
-        <div className="form-el">
-          <label htmlFor="password">password</label>
-          <InputForm
+        <div>
+          <InputFormWithLabel
             type="password"
             id="password"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
         </div>
-        <div className="button-el">
+        <div>
           <CommonButton
             title="Login"
             type="submit"
             disabled={!isAbleToSubmit}
           />
         </div>
-      </form>
+      </StyledForm>
 
       <HrefText text="or, signup" href="/auth/signup" />
     </>

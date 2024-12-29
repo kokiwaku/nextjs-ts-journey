@@ -29,21 +29,9 @@ h1 {
   line-height: 1.1;
 }
 
-a {
-  text-decoration: none;
-  color: #1a1a1a;
-}
-
 ul {
   list-style: none;
   padding: 0;
-}
-
-td {
-  text-align: left;
-}
-th {
-  text-align: right;
 }
 
 .align-left {
@@ -52,19 +40,4 @@ th {
 
 .m-1 {
   margin: 0.5rem;
-}
-
-.todo-container {
-  display: flex;
-  justify-content: center;
-}
-.form-container {
-  display: flex;
-  flex-flow: column;
-  gap: 0.5rem;
-}
-.form-el {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
 }

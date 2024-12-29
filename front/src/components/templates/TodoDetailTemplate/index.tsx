@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import { Todo } from '@/types/todo';
 import BaseLayout from '@/components/oraganisms/BaseLayout';
+import TodoDetail from '@/components/oraganisms/TodoDetail';
 
 const TopDetailTemplate: React.FC = () => {
   const [todo, setTodo] = useState<Todo | null>(null);
@@ -39,28 +40,7 @@ const TopDetailTemplate: React.FC = () => {
       <BaseLayout title="Detail">
         {todo !== null ? (
           <>
-            <div className="todo-container">
-              <table>
-                <tbody>
-                  <tr>
-                    <th>ID：</th>
-                    <td>{todo.id}</td>
-                  </tr>
-                  <tr>
-                    <th>Content：</th>
-                    <td>{todo.content}</td>
-                  </tr>
-                  <tr>
-                    <th>Created At：</th>
-                    <td>{todo.created_at}</td>
-                  </tr>
-                  <tr>
-                    <th>Updated At：</th>
-                    <td>{todo.updated_at}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <TodoDetail todo={todo} />
           </>
         ) : (
           <h3>No Content.</h3>

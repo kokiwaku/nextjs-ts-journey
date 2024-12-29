@@ -4,8 +4,24 @@ import { FormEvent, useState } from 'react';
 import { redirect } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
-import InputForm from '@/components/atoms/InputForm';
+import InputFormWithLabel from '@/components/molecules/InputFormWithLabel';
+import styled from 'styled-components';
 
+const StyledForm = styled.form`
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+
+  div {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    label {
+      width: 5rem;
+    }
+  }
+`;
 const SignupForm: React.FC = () => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
@@ -41,33 +57,31 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
-      <div className="form-el">
-        <label htmlFor="email">email</label>
-        <InputForm
+    <StyledForm onSubmit={handleSubmit}>
+      <div>
+        <InputFormWithLabel
           type="text"
           id="email"
           value={email}
           onChange={(e) => setemail(e.target.value)}
         />
       </div>
-      <div className="form-el">
-        <label htmlFor="password">password</label>
-        <InputForm
+      <div>
+        <InputFormWithLabel
           type="password"
           id="password"
           value={password}
           onChange={(e) => setpassword(e.target.value)}
         />
       </div>
-      <div className="button-el">
+      <div>
         <CommonButton
           title="Sign up"
           type="submit"
           disabled={!isAbleToSubmit}
         />
       </div>
-    </form>
+    </StyledForm>
   );
 };
 
