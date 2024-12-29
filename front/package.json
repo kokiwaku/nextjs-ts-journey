@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "debug": "NODE_OPTIONS='--inspect=0.0.0.0:9229' next dev"
+    "debug": "NODE_OPTIONS='--inspect=0.0.0.0:9229' next dev",
+    "format-check": "npx prettier . --check"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
@@ -36,6 +37,7 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
     "jsdom": "^25.0.1",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2",
     "vite": "^5.4.10",
     "vitest": "^2.1.4"
