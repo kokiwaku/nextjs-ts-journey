@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { useRouter, redirect } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
+import HrefText from '@/components/atoms/HrefText';
 
 const SignupTemplate: React.FC = () => {
   const [email, setemail] = useState('');
@@ -72,12 +73,7 @@ const SignupTemplate: React.FC = () => {
         </div>
       </form>
 
-      <p
-        className="auth-redirect-btn"
-        onClick={() => router.push('/auth/login')}
-      >
-        or, login
-      </p>
+      <HrefText text="or, login" href="/auth/login" />
     </>
   );
 };

@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { AuthUser } from '@/types/auth';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
+import HrefText from '@/components/atoms/HrefText';
 
 type RootLayoutProps = {
   user: AuthUser;
@@ -78,9 +79,8 @@ export default function ClientComponent() {
           />
         </div>
       </form>
-      <p className="auth-redirect-btn" onClick={() => redirect('/auth/signup')}>
-        or, signup
-      </p>
+
+      <HrefText text="or, signup" href="/auth/signup" />
     </>
   );
 }
