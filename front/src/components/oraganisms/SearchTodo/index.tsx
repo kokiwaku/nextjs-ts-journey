@@ -3,6 +3,7 @@
 import { useDispatch } from 'react-redux';
 import { setSearchTodo } from '@/store/modules/Todo';
 import { useSelector } from '@/store';
+import InputForm from '@/components/atoms/InputForm';
 
 const SearchTodo: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const SearchTodo: React.FC = () => {
     <>
       <div>
         <h2>Search Todo</h2>
-        <input
+        <InputForm
           type="text"
           value={searchTodoValue}
           onChange={(e) => {

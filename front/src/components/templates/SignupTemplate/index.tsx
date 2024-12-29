@@ -5,6 +5,7 @@ import { useRouter, redirect } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
 import HrefText from '@/components/atoms/HrefText';
+import InputForm from '@/components/atoms/InputForm';
 
 const SignupTemplate: React.FC = () => {
   const [email, setemail] = useState('');
@@ -48,7 +49,7 @@ const SignupTemplate: React.FC = () => {
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="form-el">
           <label htmlFor="email">email</label>
-          <input
+          <InputForm
             type="text"
             id="email"
             value={email}
@@ -57,7 +58,7 @@ const SignupTemplate: React.FC = () => {
         </div>
         <div className="form-el">
           <label htmlFor="password">password</label>
-          <input
+          <InputForm
             type="password"
             id="password"
             value={password}

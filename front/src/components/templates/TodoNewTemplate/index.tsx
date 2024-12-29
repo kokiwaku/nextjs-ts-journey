@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import BaseLayout from '@/components/oraganisms/BaseLayout';
 import CommonButton from '@/components/atoms/CommonButton';
+import InputForm from '@/components/atoms/InputForm';
 
 const TodoNewTemplage: NextPage = () => {
   const [todoContent, setTodoContent] = useState('');
@@ -29,7 +30,7 @@ const TodoNewTemplage: NextPage = () => {
       <BaseLayout title="Add Todo">
         <div>
           <h2>Add Todo</h2>
-          <input
+          <InputForm
             type="text"
             value={todoContent}
             onChange={(e) => setTodoContent(e.target.value)}

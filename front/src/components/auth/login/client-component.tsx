@@ -7,6 +7,7 @@ import { AuthUser } from '@/types/auth';
 import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
 import HrefText from '@/components/atoms/HrefText';
+import InputForm from '@/components/atoms/InputForm';
 
 type RootLayoutProps = {
   user: AuthUser;
@@ -55,7 +56,7 @@ export default function ClientComponent() {
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="form-el">
           <label htmlFor="username">email</label>
-          <input
+          <InputForm
             type="text"
             id="username"
             value={email}
@@ -64,7 +65,7 @@ export default function ClientComponent() {
         </div>
         <div className="form-el">
           <label htmlFor="password">password</label>
-          <input
+          <InputForm
             type="password"
             id="password"
             value={password}
