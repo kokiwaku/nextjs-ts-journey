@@ -1,12 +1,6 @@
-import Header from "../../components/common/Header";
+import { NextPage } from "next";
+import ErrorTemplate from "@/components/templates/ErrorTemplate";
 
-const error: React.FC<{message: string}> = ({ message }) => {
-  return (
-    <>
-      <Header title="Error" />
-      <h2>{ message }</h2>
-    </>
-  );
-};
+const ErrorPage: NextPage<{ message: string }> = ({ message }) => <ErrorTemplate message={ message } />;
 
-export default error;
+export default ErrorPage;

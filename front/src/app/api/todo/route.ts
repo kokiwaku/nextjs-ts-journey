@@ -1,18 +1,18 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { BACK_API_ENDPOINT } from "@/constants/server";
+import { BACK_API_ENDPOINT } from '@/constants/server';
 import { Todo } from '@/types/todo';
 
 export async function GET(request: NextRequest) {
   // validate
   const authToken = request.cookies.get('auth_token')?.value;
   if (authToken === undefined) {
-    return NextResponse.json([])
+    return NextResponse.json([]);
   }
 
   // request
   const response = await fetch(`${BACK_API_ENDPOINT}/todo`, {
     headers: {
-      "Authorization": `Bearer ${authToken}`
+      Authorization: `Bearer ${authToken}`,
     },
   });
   const responseJson = await response.json();
@@ -26,24 +26,24 @@ export async function GET(request: NextRequest) {
       updated_at: todo.updated_at,
     };
   });
-  return NextResponse.json(result)
-};
+  return NextResponse.json(result);
+}
 
 export async function POST(request: NextRequest) {
   // validate
   const authToken = request.cookies.get('auth_token')?.value;
   if (authToken === undefined) {
-    return NextResponse.json(null)
+    return NextResponse.json(null);
   }
 
   const { content } = await request.json();
   const response = await fetch(`${BACK_API_ENDPOINT}/todo`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${authToken}`
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`,
     },
-    body: JSON.stringify({ content })
+    body: JSON.stringify({ content }),
   });
 
   if (!response.ok) {
@@ -60,4 +60,4 @@ export async function POST(request: NextRequest) {
   };
 
   return NextResponse.json(result);
-};
+}
