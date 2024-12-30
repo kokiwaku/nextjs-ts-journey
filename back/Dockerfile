@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y libpq-dev \
     libzip-dev \
     zip \
     && docker-php-ext-install zip pdo pdo_mysql \
-    && a2enmod rewrite \
+    && a2enmod rewrite headers \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
