@@ -5,6 +5,7 @@ import ReduxProvider from '@/store/redux-proider';
 import ClientComponent from '@/components/oraganisms/BaseLayout/client-component';
 import { AuthUser } from '@/types/auth';
 import '@/styles/index.css';
+import { validateToken } from '@/app/apis/authApi';
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -14,47 +15,21 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const headersList = await headers();
   const currentPath = headersList.get('x-pathname') ?? '';
 
-  // 認証不要のパス
+  // 必要な場合だけ認証
+  let authUser = undefined;
   const unauthorozeAllowPath = ['/auth/login', '/auth/signup'];
-
-  let authUser: AuthUser = {
-    id: '',
-    name: '',
-    email: '',
-  };
-  const authToken = cookieStore.get('auth_token')?.value;
-  if (authToken !== undefined) {
-    try {
-      const response = await fetch(
-        `${FRONT_API_ENDPOINT}/auth/validate_token`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ authToken }),
-        }
-      );
-      // response check
-      if (!response.ok) {
-        throw new Error('Fail to valid token..');
-      }
-      const responseJson = await response.json();
-      if (responseJson === null) {
-        throw new Error('Fail to valid token..');
-      }
-
-      authUser = responseJson;
-    } catch (error) {
-      console.error('error:', error);
-    }
-  }
-
-  // 認証されていない場合
-  if (authUser.id === '') {
-    if (!unauthorozeAllowPath.includes(currentPath)) {
+  if (!unauthorozeAllowPath.includes(currentPath)) {
+    const token = cookieStore.get('accessToken')?.value;
+    const response = await validateToken({ token });
+    if (response.code !== 200) {
       return redirect('/auth/login');
     }
+    if (response.data === undefined) {
+      return redirect('/auth/login');
+    }
+
+    // 認証 OK
+    authUser = response?.data?.user;
   }
 
   return (

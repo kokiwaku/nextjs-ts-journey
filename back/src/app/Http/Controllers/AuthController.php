@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,7 +29,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['erros' => $validator->errors()], status: 400);
+            return response()->json(['error' => $validator->errors()], status: 400);
         }
 
         $user = User::create([
@@ -43,7 +44,10 @@ class AuthController extends Controller
         ];
         $token = Auth::attempt(credentials: $credentials);
 
-        return response()->json(['user' => $user, 'token' => $token], 200);
+        $response = response()->json(['user' => $user], 200);
+        $response->cookie('accessToken', $token, 60, '/', null, false, true);
+
+        return $response;
     }
 
     /**

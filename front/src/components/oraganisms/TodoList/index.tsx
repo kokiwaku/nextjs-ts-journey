@@ -6,18 +6,20 @@ import Todo from '@/components/molecules/Todo';
 import { useSelector } from '@/store';
 import { useEffect, useState } from 'react';
 import { Todo as TodoType } from '@/types/todo';
+import { getTodoList } from '@/app/apis/todoApi';
 
 const TodoList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { filterTodoList } = useTodo();
-  const [filteredList, setFilteredList] = useState<TodoType[]>([]);
-  const [todoList, setTodoList] = useState<TodoType[]>([]);
+  const [filteredList, setFilteredList] = useState<TodoType[] | []>([]);
+  const [todoList, setTodoList] = useState<TodoType[] | []>([]);
   const { searchTodoValue } = useSelector((state) => state.todo);
 
   const fetchTodoList = async () => {
     // todo を取得
-    const response = await fetch(`${FRONT_API_ENDPOINT}/todo`);
-    const todoList = await response.json();
+    const response = await getTodoList();
+    debugger;
+    const todoList = response.data?.todoList ?? [];
     setTodoList(todoList);
 
     // 取得したtodoをfilter

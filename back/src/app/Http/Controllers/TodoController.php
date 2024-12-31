@@ -42,7 +42,7 @@ class TodoController extends Controller
         $todoList = Todo::query()->where('user_id', operator: $userId)->get()->toArray();
 
         return response()->json([
-            'todo' => $todoList,
+            'todoList' => $todoList,
         ]);
     }
 

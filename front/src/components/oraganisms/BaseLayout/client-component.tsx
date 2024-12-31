@@ -1,19 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { Provider, useDispatch } from "react-redux";
-import { setAuthUser } from "@/store/modules/Auth";
-import { AuthUser } from "@/types/auth";
-import store from "@/store";
+import { useEffect } from 'react';
+import { Provider, useDispatch } from 'react-redux';
+import { setAuthUser } from '@/store/modules/Auth';
+import { AuthUser } from '@/types/auth';
+import store from '@/store';
 
 type RootLayoutProps = {
-  user: AuthUser;
+  user?: AuthUser | undefined;
   children: React.ReactNode;
 };
-export default function ClientComponent({
-  user,
-  children,
-}: RootLayoutProps) {
+export default function ClientComponent({ user, children }: RootLayoutProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,9 +20,9 @@ export default function ClientComponent({
     }
   }, [user, dispatch]);
 
-  return <>
-    <Provider store={store}>
-      {children}
-    </Provider>
-  </>;
+  return (
+    <>
+      <Provider store={store}>{children}</Provider>
+    </>
+  );
 }

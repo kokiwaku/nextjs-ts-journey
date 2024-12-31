@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
@@ -14,17 +18,4 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-</IfModule>
-
-# 何故かアプリケーション側でheaderを付与してもレスポンスに反映されないので、直で書く
-# TODO アプリケーション側でheaderを付与できるようにする
-<IfModule mod_headers.c>
-    # CORSの設定
-    # 許可するオリジンを明示的に指定
-    SetEnvIf Origin "http://localhost(:3000)?" ALLOWED_ORIGIN=$0
-    Header always set Access-Control-Allow-Origin %{ALLOWED_ORIGIN}e env=ALLOWED_ORIGIN
-    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-    Header always set Access-Control-Allow-Headers "*"
-    Header always set Access-Control-Allow-Credentials "true"
-    Header always set Access-Control-Max-Age "0"
 </IfModule>
