@@ -8,6 +8,7 @@ import CommonButton from '@/components/atoms/CommonButton';
 import HrefText from '@/components/atoms/HrefText';
 import InputFormWithLabel from '@/components/molecules/InputFormWithLabel';
 import styled from 'styled-components';
+import { login } from '@/app/apis/authApi';
 
 const StyledForm = styled.form`
   display: flex;
@@ -33,29 +34,11 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const payload = {
-      email,
-      password,
-    };
-    try {
-      const response = await fetch(`${FRONT_API_ENDPOINT}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      // response check
-      if (!response.ok) {
-        throw new Error('Fail to login..');
-      }
-      const responseJson = await response.json();
-      if (responseJson === null) {
-        throw new Error('Fail to login..');
-      }
-    } catch (error) {
-      console.error('error:', error);
+    const response = await login(email, password);
+    // response check
+    if (response.code !== 200) {
+      console.error(response.message);
+      return;
     }
 
     // 認証OK

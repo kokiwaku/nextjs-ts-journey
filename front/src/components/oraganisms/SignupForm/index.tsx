@@ -2,10 +2,10 @@
 
 import { FormEvent, useState } from 'react';
 import { redirect } from 'next/navigation';
-import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
 import InputFormWithLabel from '@/components/molecules/InputFormWithLabel';
 import styled from 'styled-components';
+import { signUp } from '@/app/apis/authApi';
 
 const StyledForm = styled.form`
   display: flex;
@@ -31,25 +31,10 @@ const SignupForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const payload = {
-      email,
-      name: email,
-      password,
-    };
-
-    try {
-      const response = await fetch(`${FRONT_API_ENDPOINT}/auth/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-      if (!response.ok) {
-        throw new Error('Singup Fail!!');
-      }
-    } catch (error) {
-      console.error('Error during signup:', error);
+    const response = await signUp(email, password);
+    if (response.code !== 200) {
+      console.error(response.message);
+      return;
     }
 
     // 認証OK

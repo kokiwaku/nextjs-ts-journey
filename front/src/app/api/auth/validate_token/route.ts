@@ -1,14 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { BACK_API_ENDPOINT } from "@/constants/server";
+import { BACK_API_ENDPOINT } from '@/constants/server';
 import { AuthState, AuthUser } from '@/types/auth';
 
 export async function POST(request: NextRequest) {
   const json = await request.json();
-  const token = json.authToken ?? null;
+  const token = json.auth_token ?? null;
   const response = await fetch(`${BACK_API_ENDPOINT}/auth/validate_token`, {
-    'method': 'POST',
+    method: 'POST',
     headers: {
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -28,4 +28,4 @@ export async function POST(request: NextRequest) {
   };
 
   return NextResponse.json(result);
-};
+}

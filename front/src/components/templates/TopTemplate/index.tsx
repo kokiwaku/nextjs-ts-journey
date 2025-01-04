@@ -1,14 +1,14 @@
-import BaseLayout from '@/components/oraganisms/BaseLayout';
+import TodoLayout from '@/components/oraganisms/TodoLayout';
 import SearchTodo from '@/components/oraganisms/SearchTodo';
 import TodoList from '@/components/oraganisms/TodoList';
 
 const TopTemplate: React.FC = () => {
   return (
     <>
-      <BaseLayout title="Top">
+      <TodoLayout title="Top">
         <SearchTodo />
         <TodoList />
-      </BaseLayout>
+      </TodoLayout>
     </>
   );
 };

@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,7 +29,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['erros' => $validator->errors()], status: 400);
+            return response()->json(['error' => $validator->errors()], status: 400);
         }
 
         $user = User::create([
@@ -43,7 +44,10 @@ class AuthController extends Controller
         ];
         $token = Auth::attempt(credentials: $credentials);
 
-        return response()->json(['user' => $user, 'token' => $token], 200);
+        $response = response()->json(['user' => $user], 200);
+        $response->cookie('auth_token', $token, 60, '/', null, false, true);
+
+        return $response;
     }
 
     /**
@@ -59,10 +63,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // 認証成功: ユーザー情報を返す
-        return response()->json([
-            'user' => $user,
-        ]);
+        // 認証成功
+        return response()->json(null, 204);
     }
 
     /**
@@ -82,7 +84,9 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => 'Cloud not create token'], 501);
         }
-        return response()->json(compact('token'));
+
+        $response = response()->json()->cookie('auth_token', $token, 60, '/', null, false, true);
+        return $response;
     }
 
      /**
@@ -92,7 +96,7 @@ class AuthController extends Controller
      */
     public function getUser()
     {
-        return response()->json(Auth::getUser());
+        return response()->json(['user' => Auth::getUser()]);
     }
 
     /**
@@ -106,5 +110,4 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Successfully logged out']);
     }
-
 }

@@ -1,15 +1,18 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { BACK_API_ENDPOINT } from "@/constants/server";
+import { BACK_API_ENDPOINT } from '@/constants/server';
 import { Todo } from '@/types/todo';
 
-export async function POST(request: NextRequest, { params }: { params: { email: string, password: string }}) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { email: string; password: string } }
+) {
   const json = await request.json();
   const response = await fetch(`${BACK_API_ENDPOINT}/auth/login`, {
-    'method': 'POST',
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(json)
+    body: JSON.stringify(json),
   });
 
   // response check
@@ -23,7 +26,9 @@ export async function POST(request: NextRequest, { params }: { params: { email: 
   }
 
   // Create the response and set the cookie
-  const responseWithCookie = NextResponse.json({ message: 'login successfully' });
+  const responseWithCookie = NextResponse.json({
+    message: 'login successfully',
+  });
 
   // Set cookie (HttpOnly, Secure for production, Path, and MaxAge)
   responseWithCookie.cookies.set('auth_token', token, {
@@ -35,4 +40,4 @@ export async function POST(request: NextRequest, { params }: { params: { email: 
   });
 
   return responseWithCookie;
-};
+}
