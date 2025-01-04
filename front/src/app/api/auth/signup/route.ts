@@ -23,7 +23,7 @@ export async function POST(
   });
 
   // Set cookie (HttpOnly, Secure for production, Path, and MaxAge)
-  responseWithCookie.cookies.set('auth_token', response.data.accessToken, {
+  responseWithCookie.cookies.set('auth_token', response.data.auth_token, {
     httpOnly: true,
     secure: false,
     sameSite: 'strict',

@@ -2,22 +2,24 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { FRONT_API_ENDPOINT } from '@/constants/server';
 import { Todo } from '@/types/todo';
-import BaseLayout from '@/components/oraganisms/BaseLayout';
+import TodoLayout from '@/components/oraganisms/TodoLayout';
 import TodoDetail from '@/components/oraganisms/TodoDetail';
+import { getTodoDetail } from '@/app/apis/todoApi';
 
 const TopDetailTemplate: React.FC = () => {
   const [todo, setTodo] = useState<Todo | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const params = useParams();
+  const params = useParams() as { id: string };
   const todoId = params.id;
 
   const handelfetchTodoDetail = async () => {
-    const response = await fetch(`${FRONT_API_ENDPOINT}/todo/${todoId}`);
-    const todo = await response.json();
-    setTodo(todo);
+    const response = await getTodoDetail(todoId);
+    const todo = response.data?.todo;
+    if (response.code === 200 && todo !== undefined) {
+      setTodo(todo);
+    }
     setLoading(false);
   };
 
@@ -28,16 +30,16 @@ const TopDetailTemplate: React.FC = () => {
   if (loading) {
     return (
       <>
-        <BaseLayout title="Detail">
+        <TodoLayout title="Detail">
           <h3>Now Loading...</h3>
-        </BaseLayout>
+        </TodoLayout>
       </>
     );
   }
 
   return (
     <>
-      <BaseLayout title="Detail">
+      <TodoLayout title="Detail">
         {todo !== null ? (
           <>
             <TodoDetail todo={todo} />
@@ -45,7 +47,7 @@ const TopDetailTemplate: React.FC = () => {
         ) : (
           <h3>No Content.</h3>
         )}
-      </BaseLayout>
+      </TodoLayout>
     </>
   );
 };

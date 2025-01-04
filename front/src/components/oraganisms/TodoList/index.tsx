@@ -1,7 +1,6 @@
 'use client';
 
 import useTodo from '@/hooks/UseTodo';
-import { FRONT_API_ENDPOINT } from '@/constants/server';
 import Todo from '@/components/molecules/Todo';
 import { useSelector } from '@/store';
 import { useEffect, useState } from 'react';
@@ -18,7 +17,6 @@ const TodoList: React.FC = () => {
   const fetchTodoList = async () => {
     // todo を取得
     const response = await getTodoList();
-    debugger;
     const todoList = response.data?.todoList ?? [];
     setTodoList(todoList);
 

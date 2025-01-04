@@ -11,6 +11,9 @@ export type TodoState = {
   searchTodoValue: string;
 };
 
+export type TodoResponseType = {
+  todo: Todo;
+};
 export type TodoListResponseType = {
   todoList: Todo[];
 };

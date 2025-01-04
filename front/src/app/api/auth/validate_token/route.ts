@@ -4,7 +4,7 @@ import { AuthState, AuthUser } from '@/types/auth';
 
 export async function POST(request: NextRequest) {
   const json = await request.json();
-  const token = json.authToken ?? null;
+  const token = json.auth_token ?? null;
   const response = await fetch(`${BACK_API_ENDPOINT}/auth/validate_token`, {
     method: 'POST',
     headers: {

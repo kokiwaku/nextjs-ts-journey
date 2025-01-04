@@ -13,6 +13,7 @@ export type AuthState = {
   user: AuthUser;
 };
 
+// for auth api response
 export type AuthResponseType = {
   user: AuthUser;
 };

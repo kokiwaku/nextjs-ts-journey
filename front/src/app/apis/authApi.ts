@@ -4,7 +4,7 @@ import globalAxios, {
   isAxiosError,
   IErrorResponse,
 } from '@/libs/apiClient';
-import { AuthResponseType } from '@/types/auth';
+import { AuthResponseType, AuthUser } from '@/types/auth';
 
 export const signUp = async (email: string, password: string) => {
   try {
@@ -17,11 +17,8 @@ export const signUp = async (email: string, password: string) => {
       }
     );
 
-    const result: ResponseType<AuthResponseType> = {
+    const result: ResponseType = {
       code: 200,
-      data: {
-        user: data.user,
-      },
     };
     return result;
   } catch (error) {
@@ -54,11 +51,71 @@ export const validateToken = async ({ token }: Props) => {
       }
     );
 
+    const result: ResponseType = {
+      code: 200,
+    };
+    return result;
+  } catch (error) {
+    const result: ResponseType = {
+      code: 500,
+      message: '',
+    };
+    if (isAxiosError(error)) {
+      const axiosError = error as IErrorResponse;
+      result.code = axiosError.response.status;
+      result.message = axiosError.response.data.message;
+    }
+
+    return result;
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const { data }: AxiosResponse<AuthResponseType> =
+      await globalAxios.post('/auth/user');
+
+    const user = data.user;
     const result: ResponseType<AuthResponseType> = {
       code: 200,
       data: {
-        user: data.user,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          created_at: user.created_at,
+          updated_at: user.created_at,
+        },
       },
+    };
+    return result;
+  } catch (error) {
+    const result: ResponseType = {
+      code: 500,
+      message: '',
+    };
+    if (isAxiosError(error)) {
+      const axiosError = error as IErrorResponse;
+      result.code = axiosError.response.status;
+      result.message = axiosError.response.data.message;
+    }
+
+    return result;
+  }
+};
+
+export const login = async (email: string, password: string) => {
+  try {
+    const { data }: AxiosResponse<AuthResponseType> = await globalAxios.post(
+      '/auth/login',
+      {
+        email,
+        password,
+      }
+    );
+
+    const result: ResponseType = {
+      code: 200,
     };
     return result;
   } catch (error) {

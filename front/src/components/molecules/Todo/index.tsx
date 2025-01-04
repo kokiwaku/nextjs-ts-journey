@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { Todo as TodoType, TodoId } from '@/types/todo';
-import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
 import styled from 'styled-components';
+import { deleteTodo } from '@/app/apis/todoApi';
 
 const StyledTodoItem = styled.li`
   display: flex;
@@ -29,9 +29,7 @@ const Todo: React.FC<{ todo: TodoType; fetchTodoList: Function }> = ({
   };
 
   const handleDelete = async (todoId: TodoId) => {
-    await fetch(`${FRONT_API_ENDPOINT}/todo/${todoId}`, {
-      method: 'DELETE',
-    });
+    await deleteTodo(todoId);
     await fetchTodoList();
     router.push('/');
   };

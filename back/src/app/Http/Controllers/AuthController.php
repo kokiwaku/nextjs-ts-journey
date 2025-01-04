@@ -45,7 +45,7 @@ class AuthController extends Controller
         $token = Auth::attempt(credentials: $credentials);
 
         $response = response()->json(['user' => $user], 200);
-        $response->cookie('accessToken', $token, 60, '/', null, false, true);
+        $response->cookie('auth_token', $token, 60, '/', null, false, true);
 
         return $response;
     }
@@ -63,10 +63,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // 認証成功: ユーザー情報を返す
-        return response()->json([
-            'user' => $user,
-        ]);
+        // 認証成功
+        return response()->json(null, 204);
     }
 
     /**
@@ -86,7 +84,9 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => 'Cloud not create token'], 501);
         }
-        return response()->json(compact('token'));
+
+        $response = response()->json()->cookie('auth_token', $token, 60, '/', null, false, true);
+        return $response;
     }
 
      /**
@@ -96,7 +96,7 @@ class AuthController extends Controller
      */
     public function getUser()
     {
-        return response()->json(Auth::getUser());
+        return response()->json(['user' => Auth::getUser()]);
     }
 
     /**
@@ -110,5 +110,4 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Successfully logged out']);
     }
-
 }

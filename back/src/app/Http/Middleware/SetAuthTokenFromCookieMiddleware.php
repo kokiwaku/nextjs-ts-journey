@@ -14,7 +14,7 @@ class SetAuthTokenFromCookieMiddleware
         }
 
         // クッキーから JWT トークンを取得
-        $token = $request->cookie('accessToken');
+        $token = $request->cookie('auth_token');
 
         if ($token) {
             // Authorization ヘッダーとしてセット
