@@ -1,6 +1,5 @@
 'use client';
 
-import useTodo from '@/hooks/UseTodo';
 import Todo from '@/components/molecules/Todo';
 import { useSelector } from '@/store';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,6 @@ import { getTodoList } from '@/app/apis/todoApi';
 
 const TodoList: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const { filterTodoList } = useTodo();
   const [filteredList, setFilteredList] = useState<TodoType[] | []>([]);
   const [todoList, setTodoList] = useState<TodoType[] | []>([]);
   const { searchTodoValue } = useSelector((state) => state.todo);
@@ -20,10 +18,21 @@ const TodoList: React.FC = () => {
     const todoList = response.data?.todoList ?? [];
     setTodoList(todoList);
 
-    // 取得したtodoをfilter
     const filtered = filterTodoList(todoList, searchTodoValue);
     setFilteredList(filtered);
     setLoading(false);
+  };
+
+  // TodoListをfilter
+  const filterTodoList = (todoList: TodoType[], value: string): TodoType[] => {
+    const result =
+      value === ''
+        ? todoList
+        : todoList.filter((todo) =>
+            todo.content.toLowerCase().includes(value.toLowerCase())
+          );
+
+    return result;
   };
   // 初回だけ
   useEffect(() => {

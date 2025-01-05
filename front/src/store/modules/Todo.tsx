@@ -1,17 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import useTodo from "@/hooks/UseTodo";
-import { TodoId, Todo, TodoState } from "@/types/todo";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TodoState } from '@/types/todo';
 
 // setting for initialState
 const initialState: TodoState = {
-  searchTodoValue: "",
+  searchTodoValue: '',
 };
 
-// setting for hooks
-const { filterTodoList } = useTodo();
-
 export const todoSlice = createSlice({
-  name: "todo",
+  name: 'todo',
   initialState,
   reducers: {
     setSearchTodo: (state, { payload }: PayloadAction<string>) => {
