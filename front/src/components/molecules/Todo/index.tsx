@@ -11,6 +11,10 @@ const StyledTodoItem = styled.li`
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+  padding: 0.1rem;
+`;
+const StyledTodoContent = styled.div`
+  width: 10%;
 `;
 const StyledButtonGroup = styled.div`
   display: flex;
@@ -36,7 +40,7 @@ const Todo: React.FC<{ todo: TodoType; fetchTodoList: Function }> = ({
   return (
     <>
       <StyledTodoItem>
-        {todo.content}
+        <StyledTodoContent>{todo.content}</StyledTodoContent>
         <StyledButtonGroup>
           <CommonButton title="detail" onClick={() => handleDetail(todo.id)} />
           <CommonButton
