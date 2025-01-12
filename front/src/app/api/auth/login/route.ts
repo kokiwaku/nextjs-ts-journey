@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { BACK_API_ENDPOINT } from '@/constants/server';
-import { Todo } from '@/types/todo';
 
 export async function POST(
   request: NextRequest,

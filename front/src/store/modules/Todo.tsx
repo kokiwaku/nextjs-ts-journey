@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TodoState } from '@/types/todo';
+import { TodoState } from '@/types/Todo';
 
 // setting for initialState
 const initialState: TodoState = {

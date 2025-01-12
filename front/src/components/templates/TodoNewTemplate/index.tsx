@@ -6,16 +6,15 @@ import { useRouter } from 'next/navigation';
 import TodoLayout from '@/components/oraganisms/TodoLayout';
 import CommonButton from '@/components/atoms/CommonButton';
 import InputForm from '@/components/atoms/InputForm';
-import { addTodo } from '@/app/apis/todoApi';
+import { useTodoContext } from '@/context/TodoContext';
+import { useTodoNewTemplate } from './useTodoNewTemplate';
 
 const TodoNewTemplage: NextPage = () => {
-  const [todoContent, setTodoContent] = useState('');
-  const router = useRouter();
-
-  const handleAddTodo = async () => {
-    await addTodo(todoContent);
-    router.push('/');
-  };
+  const { handleAddTodo } = useTodoContext();
+  const [{ todoContent }, { handleSetTodoContent, addTodo }] =
+    useTodoNewTemplate({
+      handleAddTodo,
+    });
 
   return (
     <>
@@ -25,11 +24,11 @@ const TodoNewTemplage: NextPage = () => {
           <InputForm
             type="text"
             value={todoContent}
-            onChange={(e) => setTodoContent(e.target.value)}
+            onChange={handleSetTodoContent}
           />
         </div>
         <div className="m-1">
-          <CommonButton title="Submit" onClick={handleAddTodo} />
+          <CommonButton title="Submit" onClick={addTodo} />
         </div>
       </TodoLayout>
     </>

@@ -1,6 +1,4 @@
-export type IsAuthenticate = boolean;
-
-export type AuthUser = {
+export type AuthUserType = {
   id: string;
   name: string;
   email: string;
@@ -8,12 +6,7 @@ export type AuthUser = {
   updated_at: string;
 };
 
-export type AuthState = {
-  isAuthenticate: IsAuthenticate;
-  user: AuthUser;
-};
-
 // for auth api response
 export type AuthResponseType = {
-  user: AuthUser;
+  user: AuthUserType;
 };

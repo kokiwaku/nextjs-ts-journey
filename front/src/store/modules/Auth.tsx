@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IsAuthenticate, AuthUser, AuthState } from "@/types/auth";
-import { BACK_API_ENDPOINT } from "@/constants/server";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IsAuthenticate, AuthUser, AuthState } from '@/types/Auth';
+import { BACK_API_ENDPOINT } from '@/constants/server';
 
 // setting for initialState
 const initialState: AuthState = {
@@ -9,17 +9,17 @@ const initialState: AuthState = {
     id: '',
     name: '',
     email: '',
-  }
+  },
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setAuthUser: (state, { payload }) => {
       state.user = payload;
       state.isAuthenticate = true;
-    }
+    },
   },
 });
 

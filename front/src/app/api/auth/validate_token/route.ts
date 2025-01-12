@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { BACK_API_ENDPOINT } from '@/constants/server';
-import { AuthState, AuthUser } from '@/types/auth';
+import { AuthUserType } from '@/types/Auth';
 
 export async function POST(request: NextRequest) {
   const json = await request.json();
@@ -21,10 +21,12 @@ export async function POST(request: NextRequest) {
   if (user === undefined) {
     return NextResponse.json(null);
   }
-  const result: AuthUser = {
+  const result: AuthUserType = {
     id: user['id'],
     name: user['name'],
     email: user['email'],
+    created_at: user['created_at'],
+    updated_at: user['updated_at'],
   };
 
   return NextResponse.json(result);

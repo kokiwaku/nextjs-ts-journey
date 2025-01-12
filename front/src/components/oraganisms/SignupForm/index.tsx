@@ -1,11 +1,9 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import { redirect } from 'next/navigation';
 import CommonButton from '@/components/atoms/CommonButton';
 import InputFormWithLabel from '@/components/molecules/InputFormWithLabel';
 import styled from 'styled-components';
-import { signUp } from '@/app/apis/authApi';
+import { useSignupForm } from './useSignupForm';
 
 const StyledForm = styled.form`
   display: flex;
@@ -23,23 +21,10 @@ const StyledForm = styled.form`
   }
 `;
 const SignupForm: React.FC = () => {
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-
-  const isAbleToSubmit = email.trim() !== '' && password.trim() !== '';
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const response = await signUp(email, password);
-    if (response.code !== 200) {
-      console.error(response.message);
-      return;
-    }
-
-    // 認証OK
-    redirect('/');
-  };
+  const [
+    { email, password, isAbleToSubmit },
+    { handleSubmit, handleSetEmail, handleSetPassword },
+  ] = useSignupForm();
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -48,7 +33,7 @@ const SignupForm: React.FC = () => {
           type="text"
           id="email"
           value={email}
-          onChange={(e) => setemail(e.target.value)}
+          onChange={handleSetEmail}
         />
       </div>
       <div>
@@ -56,7 +41,7 @@ const SignupForm: React.FC = () => {
           type="password"
           id="password"
           value={password}
-          onChange={(e) => setpassword(e.target.value)}
+          onChange={handleSetPassword}
         />
       </div>
       <div>
