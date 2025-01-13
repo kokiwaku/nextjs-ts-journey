@@ -4,7 +4,7 @@ import globalAxios, {
   isAxiosError,
   IErrorResponse,
 } from '@/libs/apiClient';
-import { AuthResponseType, AuthUser } from '@/types/auth';
+import { AuthResponseType } from '@/types/Auth';
 
 export const signUp = async (email: string, password: string) => {
   try {

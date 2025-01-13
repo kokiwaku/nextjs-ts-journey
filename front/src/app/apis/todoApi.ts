@@ -4,7 +4,7 @@ import globalAxios, {
   isAxiosError,
   IErrorResponse,
 } from '@/libs/apiClient';
-import { TodoResponseType, TodoListResponseType } from '@/types/todo';
+import { TodoResponseType, TodoListResponseType } from '@/types/Todo';
 import { todo } from 'node:test';
 
 export const getTodoList = async () => {

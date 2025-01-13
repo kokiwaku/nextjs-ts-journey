@@ -1,24 +1,22 @@
-'use client';
-
-import { useDispatch } from 'react-redux';
-import { setSearchTodo } from '@/store/modules/Todo';
-import { useSelector } from '@/store';
 import InputForm from '@/components/atoms/InputForm';
+import { EventType } from '@/types/Event';
 
-const SearchTodo: React.FC = () => {
-  const dispatch = useDispatch();
-  const { searchTodoValue } = useSelector((state) => state.todo);
-
+type Props = {
+  searchKeyword: string;
+  handleSetSeachKeyword: EventType['onChangeInput'];
+};
+const SearchTodo: React.FC<Props> = ({
+  searchKeyword,
+  handleSetSeachKeyword,
+}: Props) => {
   return (
     <>
       <div>
         <h2>Search Todo</h2>
         <InputForm
           type="text"
-          value={searchTodoValue}
-          onChange={(e) => {
-            dispatch(setSearchTodo(e.target.value));
-          }}
+          value={searchKeyword}
+          onChange={handleSetSeachKeyword}
         />
       </div>
     </>

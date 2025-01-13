@@ -1,13 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { BACK_API_ENDPOINT } from '@/constants/server';
-import { Todo } from '@/types/todo';
+import { TodoType } from '@/types/Todo';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   // validate
-  const { id } = await params;
+  const { id } = params;
   const authToken = request.cookies.get('auth_token')?.value;
   if (authToken === undefined || id === undefined) {
     return NextResponse.json([]);
@@ -28,7 +28,7 @@ export async function GET(
     return NextResponse.json([]);
   }
 
-  const result: Todo = {
+  const result: TodoType = {
     id: todo.id,
     content: todo.content,
     created_at: todo.created_at,
@@ -43,7 +43,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   // validate
-  const { id } = await params;
+  const { id } = params;
   const authToken = request.cookies.get('auth_token')?.value;
   if (authToken === undefined || id === undefined) {
     return NextResponse.json([]);

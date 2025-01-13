@@ -1,47 +1,38 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-import { Todo as TodoType, TodoId } from '@/types/todo';
+import { TodoType } from '@/types/Todo';
 import CommonButton from '@/components/atoms/CommonButton';
 import styled from 'styled-components';
-import { deleteTodo } from '@/app/apis/todoApi';
+import { useTodo } from './useTodo';
+import { useTodoContext } from '@/context/TodoContext';
 
 const StyledTodoItem = styled.li`
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+  padding: 0.1rem;
+`;
+const StyledTodoContent = styled.div`
+  width: 10%;
 `;
 const StyledButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 1rem;
 `;
-const Todo: React.FC<{ todo: TodoType; fetchTodoList: Function }> = ({
-  todo,
-  fetchTodoList,
-}) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const handleDetail = (todoId: TodoId): void => {
-    // redirect to DetailTodo
-    router.push(`/todo/${todoId}`);
-  };
-
-  const handleDelete = async (todoId: TodoId) => {
-    await deleteTodo(todoId);
-    await fetchTodoList();
-    router.push('/');
-  };
+const Todo: React.FC<{ todo: TodoType }> = ({ todo }) => {
+  const { handleDeleteTodo } = useTodoContext();
+  const [{ showTodoDetail, deleteTodo }] = useTodo({ handleDeleteTodo });
   return (
     <>
       <StyledTodoItem>
-        {todo.content}
+        <StyledTodoContent>{todo.content}</StyledTodoContent>
         <StyledButtonGroup>
-          <CommonButton title="detail" onClick={() => handleDetail(todo.id)} />
+          <CommonButton
+            title="detail"
+            onClick={() => showTodoDetail(todo.id)}
+          />
           <CommonButton
             title="delete"
-            onClick={() => handleDelete(todo.id)}
+            onClick={() => deleteTodo(todo.id)}
             buttonStyle="delete"
           />
         </StyledButtonGroup>

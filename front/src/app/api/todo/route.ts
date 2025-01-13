@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { BACK_API_ENDPOINT } from '@/constants/server';
-import { Todo } from '@/types/todo';
+import { Todo } from '@/types/Todo';
 
 export async function GET(request: NextRequest) {
   // validate

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { Todo } from '@/types/todo';
+import { Todo } from '@/types/Todo';
 import TodoLayout from '@/components/oraganisms/TodoLayout';
 import TodoDetail from '@/components/oraganisms/TodoDetail';
 import { getTodoDetail } from '@/app/apis/todoApi';

@@ -1,14 +1,11 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { redirect } from 'next/navigation';
-import { FRONT_API_ENDPOINT } from '@/constants/server';
 import CommonButton from '@/components/atoms/CommonButton';
 import HrefText from '@/components/atoms/HrefText';
 import InputFormWithLabel from '@/components/molecules/InputFormWithLabel';
 import styled from 'styled-components';
-import { login } from '@/app/apis/authApi';
+import { useAuthContext } from '@/context/AuthContext';
+import { useLoginForm } from './useLoginForm';
 
 const StyledForm = styled.form`
   display: flex;
@@ -26,34 +23,19 @@ const StyledForm = styled.form`
   }
 `;
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-  const isAbleToSubmit = email.trim() !== '' && password.trim() !== '';
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const response = await login(email, password);
-    // response check
-    if (response.code !== 200) {
-      console.error(response.message);
-      return;
-    }
-
-    // 認証OK
-    redirect('/');
-  };
-
+  const [
+    { email, password, isAbleToSubmit },
+    { handleSubmit, handleSetEmail, handleSetPassword },
+  ] = useLoginForm();
   return (
     <>
       <StyledForm onSubmit={handleSubmit}>
         <div>
           <InputFormWithLabel
-            type="text"
-            id="username"
+            type="email"
+            id="email"
             value={email}
-            onChange={(e) => setemail(e.target.value)}
+            onChange={handleSetEmail}
           />
         </div>
         <div>
@@ -61,7 +43,7 @@ const LoginForm: React.FC = () => {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setpassword(e.target.value)}
+            onChange={handleSetPassword}
           />
         </div>
         <div>

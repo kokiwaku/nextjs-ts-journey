@@ -1,6 +1,6 @@
-import { NextPage } from "next";
-import TopTemplate from "@/components/templates/TopTemplate";
+import { NextPage } from 'next';
+import TopTemplate from '@/components/templates/TopTemplate';
 
-const TopPage: NextPage = () => <TopTemplate />
+const TopPage: NextPage = () => <TopTemplate />;
 
 export default TopPage;
