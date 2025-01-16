@@ -17,8 +17,8 @@ export const useTodo = ({ handleDeleteTodo }: Props) => {
   };
 
   const deleteTodo: actionsType['deleteTodo'] = async (todoId) => {
-    deleteTodo(todoId);
-    router.push('/');
+    await handleDeleteTodo(todoId);
+    router.refresh(); // ページを更新してTodoリストを再取得
   };
 
   const actions = {
