@@ -1,18 +1,22 @@
 import '@/styles/index.css';
 import { TodoProvider } from '@/context/TodoContext';
 import { AuthProvider } from '@/context/AuthContext';
+import StyledComponentsRegistry from '@/lib/registry';
 
 type RootLayoutProps = {
   children: React.ReactNode;
 };
-export default async function RootLayout({ children }: RootLayoutProps) {
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <TodoProvider>
-      <AuthProvider>
-        <html lang="ja">
-          <body>{children}</body>
-        </html>
-      </AuthProvider>
-    </TodoProvider>
+    <html lang="ja">
+      <body>
+        <StyledComponentsRegistry>
+          <TodoProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </TodoProvider>
+        </StyledComponentsRegistry>
+      </body>
+    </html>
   );
 }
